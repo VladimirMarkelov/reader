@@ -115,6 +115,7 @@ int DLL_EXPORT ext_buffer_put_char(struct ext_buffer_t *buf, char c);
 int DLL_EXPORT ext_buffer_put_string(struct ext_buffer_t *buf, char *str, size_t sz);
 size_t DLL_EXPORT ext_buffer_size(const struct ext_buffer_t *buf);
 int DLL_EXPORT ext_buffer_copy_data(const struct ext_buffer_t *buf, char *dest, size_t dest_sz);
+char DLL_EXPORT ext_buffer_last_char(const struct ext_buffer_t *buf);
 
 #ifdef __cplusplus
 }

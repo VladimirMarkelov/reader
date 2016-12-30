@@ -184,14 +184,17 @@ int prepare_book (struct book_info_t *info) {
     }
 
     start_tag(booktext, TEXT_SECTION);
-    size_t space_cnt;
-    int last_type = TEXT_OFF, inside_para = 0;
+    size_t space_cnt, line_len;
+    int last_type = TEXT_OFF, inside_para = 0, is_epi, is_title;
+    int any_paragraph = 0;
     char *ptr = tmpbuf;
     char *line_end, *no_sp;
+    char last_ch;
 
     while (*ptr != '\0') {
         printf(" ... next loop - [%d]\n", (int)*ptr);
         no_sp = utf_skip_spaces(ptr, &space_cnt);
+        line_len = utf_line_length(no_sp, NULL);
         printf("..next line: %d spaces - %p\n", (int)space_cnt, no_sp);
 
         if (*no_sp == '\0' || *no_sp == '\x0D' || *no_sp == '\x0A') {
@@ -202,7 +205,9 @@ int prepare_book (struct book_info_t *info) {
             continue;
         }
 
-        if (space_cnt > 6) {
+        is_title = space_cnt < 6 && line_len < 70*2/3;
+
+        if (space_cnt > 6 || (is_title && any_paragraph == 0)) {
             /* epigraph or title */
             if (inside_para) {
                 close_tag(NULL, booktext, TEXT_PARA);
@@ -210,7 +215,7 @@ int prepare_book (struct book_info_t *info) {
                 inside_para = 0;
             }
 
-            int is_epi = (w > 0 && space_cnt * 2 > w) ||
+            is_epi = (w > 0 && space_cnt * 2 > w) ||
                          (w == 0 && space_cnt > 35);
 
             if (is_epi) {
@@ -247,6 +252,7 @@ int prepare_book (struct book_info_t *info) {
             /* simple text */
             printf("Simple Paragraph Text\n");
             close_tag(&last_type, booktext, TEXT_EPIGRAPH);
+            any_paragraph = 1;
 
             if (w == 0) {
                 /* every new line is new paragraph */
@@ -270,6 +276,11 @@ int prepare_book (struct book_info_t *info) {
                     close_tag(&last_type, booktext, TEXT_PARA);
                     start_tag(booktext, TEXT_PARA);
                     last_type = TEXT_PARA;
+                }
+
+                last_ch = ext_buffer_last_char(booktext);
+                if (last_ch != '\0' && (unsigned int)last_ch > 0x20 && last_ch != '-') {
+                    ext_buffer_put_char(booktext, ' ');
                 }
 
                 /*printf(" .. put text to buffer: %c\n", *no_sp);*/

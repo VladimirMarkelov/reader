@@ -1015,6 +1015,14 @@ int DLL_EXPORT ext_buffer_copy_data(const struct ext_buffer_t *buf, char *dest, 
     return BOOK_SUCCESS;
 }
 
+char DLL_EXPORT ext_buffer_last_char(const struct ext_buffer_t *buf) {
+    if (buf == NULL || buf->current == NULL || buf->current->used == 0) {
+        return '\0';
+    }
+
+    return buf->current->data[buf->current->used - 1];
+}
+
 static int utf_cp_is_space(utf8proc_int32_t cp) {
     if (cp == 0x09) {
         return 1;
