@@ -1,0 +1,72 @@
+# depslib dependency file v1.0
+1480975239 source:c:\users\vladimir.markelov\projects\c\my\reader\bookutil\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iconv.h>
+	"bookutil.h"
+
+1478300369 c:\users\vladimir.markelov\projects\c\libs\include\iconv.h
+	"iconv.h"
+	<stddef.h>
+	<errno.h>
+	<stddef.h>
+	<stdio.h>
+	<time.h>
+	<wchar.h>
+
+1478802847 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\main.h
+	<windows.h>
+
+1481591664 source:c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iconv.h>
+	"bookutil.h"
+	"utf8proc.h"
+
+1482435062 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
+	<windows.h>
+
+1479410200 c:\users\vladimir.markelov\projects\c\libs\include\utf8proc.h
+	<stdlib.h>
+	<sys/types.h>
+	<stdbool.h>
+	<inttypes.h>
+	<limits.h>
+
+1482894239 source:c:\users\vvm\projects\cpp\reader\bookutil\bookutil.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iconv.h>
+	"bookutil.h"
+	"utf8proc.h"
+
+1478300369 c:\users\vvm\projects\libs\include\iconv.h
+	"iconv.h"
+	<stddef.h>
+	<errno.h>
+	<stddef.h>
+	<stdio.h>
+	<time.h>
+	<wchar.h>
+
+1482560775 c:\users\vvm\projects\cpp\reader\bookutil\bookutil.h
+	<windows.h>
+
+1479948708 c:\users\vvm\projects\libs\include\utf8proc.h
+	<stdlib.h>
+	<sys/types.h>
+	<stdbool.h>
+	<inttypes.h>
+	<limits.h>
+
+1480992837 source:c:\users\vvm\projects\cpp\reader\bookutil\main.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iconv.h>
+	"bookutil.h"
+

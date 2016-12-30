@@ -1,0 +1,23 @@
+# depslib dependency file v1.0
+1481583916 source:c:\users\vladimir.markelov\projects\c\my\reader\bookutil\tests\main.c
+	<string.h>
+	<stdio.h>
+	"unittest.h"
+	"bookutil.h"
+
+1480974125 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\tests\unittest.h
+
+1481590531 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
+	<windows.h>
+
+1482560775 source:c:\users\vvm\projects\cpp\reader\bookutil\tests\main.c
+	<string.h>
+	<stdio.h>
+	"unittest.h"
+	"bookutil.h"
+
+1482560775 c:\users\vvm\projects\cpp\reader\bookutil\tests\unittest.h
+
+1482560775 c:\users\vvm\projects\cpp\reader\bookutil\bookutil.h
+	<windows.h>
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="reader" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/reader" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-std=c++11" />
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/reader" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+					<Add option="-std=c99" />
+					<Add directory="bookutil" />
+					<Add directory="include" />
+					<Add directory="plaintext" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="bookutil" />
+					<Add directory="bookutil/bin/Release" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+			<Add directory="../../libs/include" />
+			<Add directory="textlib" />
+			<Add directory="system" />
+		</Compiler>
+		<Linker>
+			<Add library="iconv" />
+			<Add directory="../../libs" />
+		</Linker>
+		<Unit filename="include/bookext.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="plaintext/plaintext.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="plaintext/plaintext.h" />
+		<Unit filename="system/files.cpp" />
+		<Unit filename="system/files.h" />
+		<Unit filename="textlib/book.cpp" />
+		<Unit filename="textlib/book.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

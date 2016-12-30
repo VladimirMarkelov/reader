@@ -1,0 +1,134 @@
+# depslib dependency file v1.0
+1482454980 source:c:\users\vladimir.markelov\projects\c\my\reader\main.cpp
+	<iostream>
+	"book.h"
+	"bookutil.h"
+	"bookext.h"
+	"system/files.h"
+
+1478738606 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\encoding.cpp
+	<stdlib.h>
+	<string.h>
+	<iconv.h>
+	"encoding.h"
+
+1478738591 c:\users\vladimir.markelov\projects\c\my\reader\textlib\encoding.h
+
+1478563773 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\fileload.cpp
+	<stdlib.h>
+	<string.h>
+	<stdio.h>
+	<iconv.h>
+	"fileload.h"
+
+1478300369 c:\users\vladimir.markelov\projects\c\libs\include\iconv.h
+	"iconv.h"
+	<stddef.h>
+	<errno.h>
+	<stddef.h>
+	<stdio.h>
+	<time.h>
+	<wchar.h>
+
+1478558857 c:\users\vladimir.markelov\projects\c\my\reader\textlib\fileload.h
+
+1482454751 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iconv.h>
+	"book.h"
+	"bookutil.h"
+	"bookext.h"
+	"plaintext.h"
+
+1482454643 c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.h
+	<stdio.h>
+
+1479753824 c:\users\vladimir.markelov\projects\c\my\reader\base\base.h
+	<windows.h>
+
+1480974125 c:\users\vladimir.markelov\projects\c\my\reader\system\files.h
+
+1481063073 source:c:\users\vladimir.markelov\projects\c\my\reader\system\files.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iconv.h>
+	"bookutil.h"
+	"files.h"
+
+1482560775 source:c:\users\vvm\projects\cpp\reader\main.cpp
+	<iostream>
+	"book.h"
+	"bookutil.h"
+	"bookext.h"
+	"system/files.h"
+
+1482891172 c:\users\vvm\projects\cpp\reader\textlib\book.h
+	<stdio.h>
+
+1479160232 c:\users\vvm\projects\cpp\reader\system\files.h
+
+1479772579 c:\users\vvm\projects\cpp\reader\base\base.h
+	<windows.h>
+
+1481078145 source:c:\users\vvm\projects\cpp\reader\system\files.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iconv.h>
+	"bookutil.h"
+	"files.h"
+
+1478300369 c:\users\vvm\projects\libs\include\iconv.h
+	"iconv.h"
+	<stddef.h>
+	<errno.h>
+	<stddef.h>
+	<stdio.h>
+	<time.h>
+	<wchar.h>
+
+1482889475 source:c:\users\vvm\projects\cpp\reader\textlib\book.cpp
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iconv.h>
+	"book.h"
+	"bookutil.h"
+	"bookext.h"
+	"plaintext.h"
+
+1482560775 c:\users\vvm\projects\cpp\reader\bookutil\bookutil.h
+	<windows.h>
+
+1480920928 c:\users\vvm\projects\cpp\reader\plaintext\bookext.h
+	"book.h"
+
+1482560775 source:c:\users\vvm\projects\cpp\reader\plaintext\plaintext.c
+	"plaintext.h"
+	"bookutil.h"
+
+1482560775 c:\users\vvm\projects\cpp\reader\plaintext\plaintext.h
+	"bookext.h"
+
+1482435062 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
+	<windows.h>
+
+1481063086 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\bookext.h
+	"book.h"
+
+1482454445 source:c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.c
+	"plaintext.h"
+	"bookutil.h"
+
+1482454434 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.h
+	"bookext.h"
+
+1481063086 c:\users\vladimir.markelov\projects\c\my\reader\include\bookext.h
+	"book.h"
+
+1482560775 c:\users\vvm\projects\cpp\reader\include\bookext.h
+	"book.h"
+
