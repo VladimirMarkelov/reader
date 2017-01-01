@@ -27,6 +27,7 @@
 					<Add directory="bookutil" />
 					<Add directory="include" />
 					<Add directory="plaintext" />
+					<Add directory="bookiter" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -46,6 +47,10 @@
 			<Add library="iconv" />
 			<Add directory="../../libs" />
 		</Linker>
+		<Unit filename="bookiter/bookiter.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="bookiter/bookiter.h" />
 		<Unit filename="include/bookext.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="plaintext/plaintext.c">

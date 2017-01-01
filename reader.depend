@@ -100,13 +100,13 @@
 	"bookext.h"
 	"plaintext.h"
 
-1483127534 c:\users\vvm\projects\cpp\reader\bookutil\bookutil.h
+1483234907 c:\users\vvm\projects\cpp\reader\bookutil\bookutil.h
 	<windows.h>
 
 1480920928 c:\users\vvm\projects\cpp\reader\plaintext\bookext.h
 	"book.h"
 
-1482560775 source:c:\users\vvm\projects\cpp\reader\plaintext\plaintext.c
+1483127971 source:c:\users\vvm\projects\cpp\reader\plaintext\plaintext.c
 	"plaintext.h"
 	"bookutil.h"
 
