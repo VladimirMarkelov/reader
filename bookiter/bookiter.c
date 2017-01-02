@@ -110,6 +110,11 @@ int iterator_next(struct book_iterator* it, char* buf, size_t buf_sz, size_t *cn
         return BOOK_NO_MEMORY;
     }
 
+    /* skip header */
+    if (it->pos == 0) {
+        it->pos = 5;
+    }
+
     iterator_skip_whitespaces(it);
 
     if (! iterator_valid(it)) {
