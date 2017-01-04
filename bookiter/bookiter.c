@@ -3,7 +3,7 @@
 
 #include "utf8proc.h"
 
-struct book_iterator* iterator_init(struct book_info_t* book) {
+struct book_iterator* iterator_init(const struct book_info_t* book) {
     if (book == NULL || book->status != BOOK_PARSE_SUCCESS) {
         return NULL;
     }
@@ -106,6 +106,10 @@ int iterator_next(struct book_iterator* it, char* buf, size_t buf_sz, size_t *cn
         return BOOK_INVALID_ARG;
     }
 
+    if (it->book->text[it->pos] == '\0') {
+        return BOOK_NO_TEXT;
+    }
+
     if (buf == NULL || buf_sz < 1) {
         return BOOK_NO_MEMORY;
     }
@@ -129,7 +133,7 @@ int iterator_next(struct book_iterator* it, char* buf, size_t buf_sz, size_t *cn
     if (c == 0x0A) {
         it->pos++;
         *buf = '\0';
-        return BOOK_NEW_LINE;
+        return BOOK_ITEM_NEW_LINE;
     }
 
     if (c < 0x0A) {
@@ -140,22 +144,55 @@ int iterator_next(struct book_iterator* it, char* buf, size_t buf_sz, size_t *cn
             return BOOK_INVALID_FILE;
         }
         if (buf_sz < 3) {
-            return BOOK_NO_MEMORY;
+            return BOOK_BUFFER_SMALL;
         }
 
         buf[1] = it->book->text[it->pos];
         buf[2] = '\0';
-        return BOOK_META;
+        it->pos++;
+
+        return BOOK_ITEM_META;
     }
 
     if (c < 0x20) {
         return BOOK_INVALID_FILE;
     }
 
-    --- copy till whitespace|0xA|meta ---
+
+    utf8proc_uint8_t *src = (utf8proc_uint8_t*)&it->book->text[it->pos];
+    utf8proc_uint8_t *dst = (utf8proc_uint8_t*)buf;
+    utf8proc_int32_t cp;
+    utf8proc_category_t ctg;
+    size_t c_len, line_left = buf_sz;
+
+    while (*src != '\0') {
+        c_len = utf8proc_iterate(src, -1, &cp);
+        ctg = utf8proc_category(cp);
+
+        if (ctg == UTF8PROC_CATEGORY_ZS || cp <= 0x20) {
+            break;
+        }
+
+        if (line_left < c_len + 1) {
+            return BOOK_BUFFER_SMALL;
+        }
+
+        utf8proc_encode_char(cp, dst);
+        dst += c_len;
+        src += c_len;
+        buf_sz -= c_len;
+        it->pos += c_len;
+
+        if (cnt != NULL) {
+            *cnt += 1;
+        }
+    }
+    *dst = '\0';
+
+    return BOOK_ITEM_TEXT;
 }
 
-size_t iterator_max_width(struct book_iterator* it) {
+size_t iterator_section_max_width(struct book_iterator* it) {
     if (it == NULL || it->book == NULL) {
         return (size_t) -1;
     }

@@ -16,6 +16,7 @@
 #define BOOK_WRITE 0
 
 #define MAX_ENC_STRING 32
+#define PARA_INDENT 4
 
 #ifdef __cplusplus
 extern "C"
@@ -37,6 +38,18 @@ struct book_info_t {
 
 int book_open(char* path, struct book_info_t *book, int reading);
 void book_close(FILE* book);
+
+struct book_preformat {
+    char *line;
+    size_t sz;
+    size_t cap;
+    size_t bt_sz;
+    size_t indent;
+    struct book_preformat* next;
+    int attr;
+};
+struct book_preformat* book_preformat_mono(const struct book_info_t *book, size_t max_width);
+void book_preformat_free(struct book_preformat* fmt);
 
 #ifdef __cplusplus
 }

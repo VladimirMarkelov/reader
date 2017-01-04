@@ -33,6 +33,22 @@ int main()
     fwrite(book_info.text, sizeof(char), book_info.text_sz, f);
     fclose(f);
 
+    struct book_preformat* fmt = book_preformat_mono(&book_info, 80);
+    struct book_preformat* crr = fmt;
+    if (crr == NULL) {
+        printf("Failed to reformat book\n");
+    }
+    FILE *fr = fopen("cnvfmt.txt", "wb");
+    int i = 1;
+    while (crr) {
+        fwrite(crr->line, sizeof(char), strlen(crr->line), fr);
+        putc(0x0A, fr);
+        crr = crr->next;
+        i++;
+    }
+    fclose(fr);
+    printf("Lines = %d\n", i);
+
 //    FILE *f = fopen("example.txt", "r");
 //    char fb[20];
 //    fgets(fb, 20, f);

@@ -18,10 +18,6 @@
 #define TEXT_CODE 6
 #define TEXT_HDR1 7
 #define TEXT_HDR2 8
-#define TEXT_HDR3 9
-#define TEXT_HDR4 10
-#define TEXT_HDR5 11
-#define TEXT_HDR6 12
 #define TEXT_LIST 13
 #define TEXT_LIST_ITEM 14
 #define TEXT_AUTHOR 15
