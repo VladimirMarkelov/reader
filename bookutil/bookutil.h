@@ -96,6 +96,8 @@ char* DLL_EXPORT utf_line_forward(char *str, char** word_start);
 int DLL_EXPORT utf_word_count(char *str, size_t maxch);
 int DLL_EXPORT utf_starts_with(char *str, char *pattern);
 int DLL_EXPORT utf_line_is_empty(char *str);
+int DLL_EXPORT utf_is_first_char_lower(char *str);
+int DLL_EXPORT utf_is_first_char_upper(char *str);
 
 int DLL_EXPORT hyphenation(char *str, size_t *hyph, size_t sz);
 

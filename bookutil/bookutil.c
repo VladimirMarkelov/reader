@@ -1293,6 +1293,45 @@ int DLL_EXPORT utf_line_is_empty(char *str) {
     return is_empty;
 }
 
+int DLL_EXPORT utf_is_first_char_lower(char *str) {
+    if (str == NULL || *str == '\0') {
+        return 0;
+    }
+
+    utf8proc_uint8_t *tmp = (utf8proc_uint8_t*)str;
+    utf8proc_int32_t cp, cp_lower, cp_upper;
+    utf8proc_iterate(tmp, -1, &cp);
+
+    if (cp == -1) {
+        return 0;
+    }
+
+    cp_lower = utf8proc_tolower(cp);
+    cp_upper = utf8proc_toupper(cp);
+
+    return (cp_lower != cp_upper) && (cp == cp_lower);
+}
+
+int DLL_EXPORT utf_is_first_char_upper(char *str) {
+    if (str == NULL || *str == '\0') {
+        return 0;
+    }
+
+    utf8proc_uint8_t *tmp = (utf8proc_uint8_t*)str;
+    utf8proc_int32_t cp, cp_lower, cp_upper;
+    utf8proc_iterate(tmp, -1, &cp);
+
+    if (cp == -1) {
+        return 0;
+    }
+
+    cp_lower = utf8proc_tolower(cp);
+    cp_upper = utf8proc_toupper(cp);
+
+    return (cp_lower != cp_upper) && (cp == cp_upper);
+}
+
+
 //#ifdef _WIN32
 //    // Windows (x64 and x86)
 //#elif __unix__ // all unices, not all compilers

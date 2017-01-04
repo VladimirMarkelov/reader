@@ -197,7 +197,9 @@ int prepare_book (struct book_info_t *info) {
             continue;
         }
 
-        is_title = space_cnt < 6 &&
+        int is_upcase = utf_is_first_char_upper(no_sp);
+        is_title = is_upcase &&
+                   space_cnt < 6 &&
                    line_len < 70*2/3 &&
                    utf_starts_with(no_sp, "-") != BOOK_EQUAL;
 
@@ -257,7 +259,10 @@ int prepare_book (struct book_info_t *info) {
                 ext_buffer_put_char(booktext, ENDLN);
                 close_tag(NULL, booktext, TEXT_PARA);
             } else {
-                if (space_cnt > 1 || ! inside_para || space_cnt + line_len < w * 4 / 5) {
+                if (space_cnt > 6 ||
+                    ! inside_para ||
+                    (space_cnt + line_len < w * 4 / 5 && is_upcase)
+                    ) {
                     /* paragraph starts with the line that has >=2
                      * leading spaces or after non-paragraph section
                      */

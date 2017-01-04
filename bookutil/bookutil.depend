@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1480975239 source:c:\users\vladimir.markelov\projects\c\my\reader\bookutil\main.cpp
+1483463890 source:c:\users\vladimir.markelov\projects\c\my\reader\bookutil\main.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -26,7 +26,7 @@
 	"bookutil.h"
 	"utf8proc.h"
 
-1482435062 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
+1483560315 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
 	<windows.h>
 
 1479410200 c:\users\vladimir.markelov\projects\c\libs\include\utf8proc.h
