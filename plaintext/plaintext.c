@@ -157,17 +157,7 @@ int prepare_book (struct book_info_t *info) {
     /* parse book */
     size_t w = detect_text_width(tmpbuf);
     printf("   text width %d\n", (int)w);
-/* epigraph is the text always starts after (max_width/2 - text_len_without_spaces/2) ! */
-    /* convert text to paragraphs, epigraphs and headers
-     * epigraphs are text starting from position > 20
-     *     having the same start position and ~ the same end position at
-     *     about text_width if text_width is not 0
-     * headers are short text starting from position > 6 or
-     *     and not starting from  '-' symbol(that is characters' text)
-     * paragraph - starts with at least 2 spaces or with '-'. Starting new
-     *     paragraph automatically closes the previous one. Every empty line
-     *     starts new paragraph
-     */
+
     struct ext_buffer_t* booktext = ext_buffer_init();
     if (booktext == NULL) {
         free(tmpbuf);
@@ -201,11 +191,15 @@ int prepare_book (struct book_info_t *info) {
             printf("    empty line\n");
             ext_buffer_put_char(booktext, ENDLN);
             close_tag(&last_type, booktext, -1);
+            start_tag(booktext, TEXT_PARA);
+            close_tag(NULL, booktext, TEXT_PARA);
             ptr = utf_next_line(no_sp);
             continue;
         }
 
-        is_title = space_cnt < 6 && line_len < 70*2/3;
+        is_title = space_cnt < 6 &&
+                   line_len < 70*2/3 &&
+                   utf_starts_with(no_sp, "-") != BOOK_EQUAL;
 
         if (space_cnt > 6 || (is_title && any_paragraph == 0)) {
             /* epigraph or title */
@@ -215,8 +209,9 @@ int prepare_book (struct book_info_t *info) {
                 inside_para = 0;
             }
 
-            is_epi = (w > 0 && space_cnt * 2 > w) ||
-                         (w == 0 && space_cnt > 35);
+            is_epi = (w > 0 && (abs(w - space_cnt - line_len) < 10 && space_cnt > w / 4)) ||
+                     (space_cnt > w / 4 && last_type == TEXT_EPIGRAPH) ||
+                     (w == 0 && space_cnt > 35);
 
             if (is_epi) {
                 /* epigraph */
@@ -262,7 +257,7 @@ int prepare_book (struct book_info_t *info) {
                 ext_buffer_put_char(booktext, ENDLN);
                 close_tag(NULL, booktext, TEXT_PARA);
             } else {
-                if (space_cnt > 1 || ! inside_para) {
+                if (space_cnt > 1 || ! inside_para || space_cnt + line_len < w * 4 / 5) {
                     /* paragraph starts with the line that has >=2
                      * leading spaces or after non-paragraph section
                      */
@@ -406,16 +401,17 @@ static size_t detect_text_width(char *text) {
     size_t mx = lens[0];
     size_t linelen = 0;
     for (size_t i = 1; i < array_size; i++) {
-        if (lens[i] > mx) {
+        //printf(" ----> %d : %d <--------\n", (int)i, (int)lens[i]);
+        if (lens[i] >= mx) {
             mx = lens[i];
             linelen = i * 10;
         }
     }
 
-    /* if any length of non-empty lines is more frquent than 20% of the text
+    /* if any length of non-empty lines is more frquent than 15% of the text
      * then use it as a text width
      */
-    if (mx * 100 / (MAX_LINES_CHECK - to_check - empty) > 20) {
+    if (mx * 100 / (MAX_LINES_CHECK - to_check - empty) > 15) {
         return linelen;
     }
 

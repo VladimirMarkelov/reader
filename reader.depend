@@ -32,11 +32,12 @@
 
 1478558857 c:\users\vladimir.markelov\projects\c\my\reader\textlib\fileload.h
 
-1483484622 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.cpp
+1483491815 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<iconv.h>
+	"utf8proc.h"
 	"book.h"
 	"bookutil.h"
 	"bookext.h"
@@ -120,7 +121,7 @@
 1481063086 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\bookext.h
 	"book.h"
 
-1483463890 source:c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.c
+1483551947 source:c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.c
 	"plaintext.h"
 	"bookutil.h"
 
@@ -133,7 +134,7 @@
 1482560775 c:\users\vvm\projects\cpp\reader\include\bookext.h
 	"book.h"
 
-1483484943 source:c:\users\vladimir.markelov\projects\c\my\reader\bookiter\bookiter.c
+1483556451 source:c:\users\vladimir.markelov\projects\c\my\reader\bookiter\bookiter.c
 	"bookutil.h"
 	"bookiter.h"
 	"utf8proc.h"

@@ -155,6 +155,7 @@ int iterator_next(struct book_iterator* it, char* buf, size_t buf_sz, size_t *cn
     }
 
     if (c < 0x20) {
+        it->pos++;
         return BOOK_INVALID_FILE;
     }
 
@@ -168,6 +169,11 @@ int iterator_next(struct book_iterator* it, char* buf, size_t buf_sz, size_t *cn
     while (*src != '\0') {
         c_len = utf8proc_iterate(src, -1, &cp);
         ctg = utf8proc_category(cp);
+
+        if (cp == -1) {
+            c_len = 1;
+            cp = 0x20;
+        }
 
         if (ctg == UTF8PROC_CATEGORY_ZS || cp <= 0x20) {
             break;
