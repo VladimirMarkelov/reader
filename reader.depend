@@ -32,7 +32,7 @@
 
 1478558857 c:\users\vladimir.markelov\projects\c\my\reader\textlib\fileload.h
 
-1483491815 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.cpp
+1484012500 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -121,7 +121,7 @@
 1481063086 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\bookext.h
 	"book.h"
 
-1483559861 source:c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.c
+1483560727 source:c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.c
 	"plaintext.h"
 	"bookutil.h"
 

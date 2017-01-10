@@ -194,6 +194,7 @@ int prepare_book (struct book_info_t *info) {
             start_tag(booktext, TEXT_PARA);
             close_tag(NULL, booktext, TEXT_PARA);
             ptr = utf_next_line(no_sp);
+            last_type = TEXT_OFF;
             continue;
         }
 
@@ -274,6 +275,11 @@ int prepare_book (struct book_info_t *info) {
                     /* direct speech */
                     printf("  direct speech\n");
                     close_tag(&last_type, booktext, TEXT_PARA);
+                    start_tag(booktext, TEXT_PARA);
+                    last_type = TEXT_PARA;
+                }
+
+                if (last_type != TEXT_PARA) {
                     start_tag(booktext, TEXT_PARA);
                     last_type = TEXT_PARA;
                 }

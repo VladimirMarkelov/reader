@@ -157,12 +157,12 @@ static struct book_preformat* new_preformat_line(struct book_preformat *parent, 
 
 static void line_fill_char(struct book_preformat *line, char c, size_t cnt) {
     while (line->sz < line->cap && cnt > 0) {
-        line->line[line->sz] = c;
+        line->line[line->bt_sz] = c;
         line->sz++;
         line->bt_sz++;
         cnt--;
     }
-    line->line[line->sz] = '\0';
+    line->line[line->bt_sz] = '\0';
 }
 
 struct book_preformat* book_preformat_mono(const struct book_info_t *book, size_t max_width) {
@@ -198,6 +198,7 @@ struct book_preformat* book_preformat_mono(const struct book_info_t *book, size_
                 printf("META FOUND --------- \n");
                 if (buf[0] == TEXT_PART) {
                     if ((buf[1] & TEXT_OFF) == TEXT_OFF) {
+                        printf("META --- OFF \n");
                         curr_section = 0;
                         curr = new_preformat_line(curr, max_width);
 
@@ -298,7 +299,7 @@ struct book_preformat* book_preformat_mono(const struct book_info_t *book, size_
                     curr = new_preformat_line(curr, max_width);
                 }
 
-                printf("Add to current line: %d   <--> %d - %d\n", (int)cnt, (int)curr->cap, (int)curr->sz);
+                printf("Add to current line: %d   <--> %d - %d[%d]\n", (int)cnt, (int)curr->cap, (int)curr->sz, (int)curr->bt_sz);
                 slen = strlen(word);
                 if (slen + curr->bt_sz >= FORMAT_BUF_SIZE - 1) {
                     printf("Buffer (used %d bytes) too small to keep %d characters (req: %d bytes)\n", (int)curr->bt_sz, (int)max_width, (int)slen);
@@ -312,7 +313,7 @@ struct book_preformat* book_preformat_mono(const struct book_info_t *book, size_
                 strcat(curr->line, word);
                 curr->bt_sz += slen;
                 curr->sz += cnt;
-                printf("LINE %d - %d\n", (int)curr->sz, (int)curr->bt_sz);
+                printf("LINE %d - %d [%s]\n", (int)curr->sz, (int)curr->bt_sz, curr->line);
 
                 break;
             case BOOK_NO_TEXT:
