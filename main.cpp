@@ -12,7 +12,7 @@ int main()
     cout << "STep 1\n" << endl;
     char path[] = "пример.txt";
     cout << "STep 2\n" << endl;
-    book_info_t book_info;
+    book_info book_info;
     int res = book_open(path, &book_info, BOOK_READ);
 
     std::string s;
@@ -33,7 +33,9 @@ int main()
     fwrite(book_info.text, sizeof(char), book_info.text_sz, f);
     fclose(f);
 
-    struct book_preformat* fmt = book_preformat_mono(&book_info, 80);
+    struct pre_options opts;
+    opts.width = 80;
+    struct book_preformat* fmt = book_preformat_mono(&book_info, &opts);
     struct book_preformat* crr = fmt;
     if (crr == NULL) {
         printf("Failed to reformat book\n");

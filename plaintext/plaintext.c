@@ -13,13 +13,13 @@ extern "C"
 
 static size_t detect_text_width(char *text);
 
-static int is_book_valid(const struct book_info_t *info) {
+static int is_book_valid(const struct book_info *info) {
     return info &&
            info->fd &&
            info->status == BOOK_LOAD_SUCCEES;
 }
 
-int get_encoding (struct book_info_t *info) {
+int get_encoding (struct book_info *info) {
     if (info == NULL) {
         return BOOK_INVALID_ARG;
     }
@@ -106,7 +106,7 @@ static int close_tag(int *text_type, struct ext_buffer_t* booktext, int tag) {
     return BOOK_SUCCESS;
 }
 
-int prepare_book (struct book_info_t *info) {
+int prepare_book (struct book_info *info) {
     if (! is_book_valid(info)) {
         return BOOK_INVALID_ARG;
     }
@@ -332,7 +332,7 @@ int prepare_book (struct book_info_t *info) {
     return BOOK_SUCCESS;
 }
 
-int can_open (const struct book_info_t *info) {
+int can_open (const struct book_info *info) {
     if (! is_book_valid(info)) {
         return BOOK_INVALID_ARG;
     }
@@ -340,7 +340,7 @@ int can_open (const struct book_info_t *info) {
     return BOOK_SUCCESS;
 }
 
-void free_book (const struct book_info_t *info) {
+void free_book (const struct book_info *info) {
     if (info == NULL) {
         return;
     }

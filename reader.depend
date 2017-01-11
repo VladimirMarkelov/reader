@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1483484774 source:c:\users\vladimir.markelov\projects\c\my\reader\main.cpp
+1484171468 source:c:\users\vladimir.markelov\projects\c\my\reader\main.cpp
 	<iostream>
 	"book.h"
 	"bookutil.h"
@@ -44,7 +44,7 @@
 	"plaintext.h"
 	"bookiter.h"
 
-1483473595 c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.h
+1484172447 c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.h
 	<stdio.h>
 
 1479753824 c:\users\vladimir.markelov\projects\c\my\reader\base\base.h
@@ -121,25 +121,25 @@
 1481063086 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\bookext.h
 	"book.h"
 
-1483560727 source:c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.c
+1484171198 source:c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.c
 	"plaintext.h"
 	"bookutil.h"
 
-1483463890 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.h
+1484171203 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.h
 	"bookext.h"
 
-1483471704 c:\users\vladimir.markelov\projects\c\my\reader\include\bookext.h
+1484171257 c:\users\vladimir.markelov\projects\c\my\reader\include\bookext.h
 	"book.h"
 
 1482560775 c:\users\vvm\projects\cpp\reader\include\bookext.h
 	"book.h"
 
-1483559892 source:c:\users\vladimir.markelov\projects\c\my\reader\bookiter\bookiter.c
+1484171161 source:c:\users\vladimir.markelov\projects\c\my\reader\bookiter\bookiter.c
 	"bookutil.h"
 	"bookiter.h"
 	"utf8proc.h"
 
-1483472993 c:\users\vladimir.markelov\projects\c\my\reader\bookiter\bookiter.h
+1484171174 c:\users\vladimir.markelov\projects\c\my\reader\bookiter\bookiter.h
 	"bookext.h"
 	"bookiter.h"
 

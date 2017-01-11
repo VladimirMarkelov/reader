@@ -23,7 +23,7 @@ extern "C"
 {
 #endif
 
-struct book_info_t {
+struct book_info {
     FILE *fd;
     int status;
     int options;
@@ -36,9 +36,17 @@ struct book_info_t {
     char *text;
 };
 
-int book_open(char* path, struct book_info_t *book, int reading);
+int book_open(char* path, struct book_info *book, int reading);
 void book_close(FILE* book);
 
+struct pre_options {
+    /* maximal text width */
+    size_t width;
+    /* disable hyphenation */
+    int hyph_disable;
+    /* add extra spaces between words to make string maximum width */
+    int add_spaces;
+};
 struct book_preformat {
     char *line;
     size_t sz;
@@ -48,7 +56,7 @@ struct book_preformat {
     struct book_preformat* next;
     int attr;
 };
-struct book_preformat* book_preformat_mono(const struct book_info_t *book, size_t max_width);
+struct book_preformat* book_preformat_mono(const struct book_info *book, struct pre_options *opts);
 void book_preformat_free(struct book_preformat* fmt);
 
 #ifdef __cplusplus

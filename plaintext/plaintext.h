@@ -9,10 +9,10 @@ extern "C"
 #endif
 
 
-int can_open (const struct book_info_t *info);
-int get_encoding (struct book_info_t *info);
-int prepare_book (struct book_info_t *info);
-void free_book (const struct book_info_t *info);
+int can_open (const struct book_info *info);
+int get_encoding (struct book_info *info);
+int prepare_book (struct book_info *info);
+void free_book (const struct book_info *info);
 
 #ifdef __cplusplus
 }

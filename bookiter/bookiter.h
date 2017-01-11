@@ -10,12 +10,12 @@ extern "C"
 #endif
 
 struct book_iterator {
-    const struct book_info_t *book;
+    const struct book_info *book;
     size_t pos;
     size_t save_pos;
 };
 
-struct book_iterator* iterator_init(const struct book_info_t* book);
+struct book_iterator* iterator_init(const struct book_info* book);
 void iterator_free(struct book_iterator* it);
 
 int iterator_skip_meta(struct book_iterator* it);

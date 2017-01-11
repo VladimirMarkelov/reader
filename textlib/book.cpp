@@ -48,7 +48,7 @@ void unload_plugins() {
 }
 
 
-int book_open(char* path, struct book_info_t *book, int reading) {
+int book_open(char* path, struct book_info *book, int reading) {
     if (book == NULL) {
         return BOOK_LOAD_FAILED;
     }
@@ -114,7 +114,7 @@ int book_open(char* path, struct book_info_t *book, int reading) {
     return book->status;
 }
 
-void book_close(book_info_t *book) {
+void book_close(book_info *book) {
     if (book == NULL) {
         return;
     }
@@ -165,10 +165,15 @@ static void line_fill_char(struct book_preformat *line, char c, size_t cnt) {
     line->line[line->bt_sz] = '\0';
 }
 
-struct book_preformat* book_preformat_mono(const struct book_info_t *book, size_t max_width) {
+struct book_preformat* book_preformat_mono(const struct book_info *book, struct pre_options *opts) {
     struct book_preformat* head = NULL;
 
     if (book == NULL || book->status != BOOK_PARSE_SUCCESS) {
+        return head;
+    }
+
+    size_t max_width = (opts == NULL ? 80 : opts->width);
+    if (max_width < 20 || max_width > 300) {
         return head;
     }
 
@@ -297,6 +302,11 @@ struct book_preformat* book_preformat_mono(const struct book_info_t *book, size_
                     }
 
                     curr = new_preformat_line(curr, max_width);
+                }
+
+                if (cnt > max_width) {
+                    printf("Too long word that cannot be hyphenated [%s], skipped", word);
+                    break;
                 }
 
                 printf("Add to current line: %d   <--> %d - %d[%d]\n", (int)cnt, (int)curr->cap, (int)curr->sz, (int)curr->bt_sz);

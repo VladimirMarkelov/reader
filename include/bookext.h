@@ -39,9 +39,9 @@
  * 02 - every paragraph starts from indented line
  */
 
-typedef int  (*fn_load_book) (struct book_info_t *info);
-typedef void (*fn_unload_book) (const struct book_info_t *info);
-typedef int  (*fn_supported) (const struct book_info_t *info);
-typedef int  (*fn_enc) (struct book_info_t *info);
+typedef int  (*fn_load_book) (struct book_info *info);
+typedef void (*fn_unload_book) (const struct book_info *info);
+typedef int  (*fn_supported) (const struct book_info *info);
+typedef int  (*fn_enc) (struct book_info *info);
 
 #endif // BOOKEXT_H_20161203

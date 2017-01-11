@@ -3,7 +3,7 @@
 
 #include "utf8proc.h"
 
-struct book_iterator* iterator_init(const struct book_info_t* book) {
+struct book_iterator* iterator_init(const struct book_info* book) {
     if (book == NULL || book->status != BOOK_PARSE_SUCCESS) {
         return NULL;
     }
