@@ -35,6 +35,7 @@ int main()
 
     struct pre_options opts;
     opts.width = 80;
+    /* opts.hyph_disable = 1; */
     struct book_preformat* fmt = book_preformat_mono(&book_info, &opts);
     struct book_preformat* crr = fmt;
     if (crr == NULL) {

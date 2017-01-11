@@ -191,7 +191,9 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
     char buf[FORMAT_BUF_SIZE];
     size_t cnt, ind, width, slen;
     struct book_preformat* curr = head;
-    int curr_section = 0;
+    int curr_section = 0,
+        do_hyph = (opts == NULL ? 1 : !opts->hyph_disable),
+        widen = (opts == NULL ? 0: opts->add_spaces);
     size_t hyps[MAX_HYPS];
     char *word;
 
@@ -249,8 +251,8 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
 
                 word = buf;
                 if (curr->cap < curr->sz + cnt) {
-                    printf("HYPH - try [%s]\n", buf);
-                    if (curr->sz + 4 < curr->cap) {
+                    if (do_hyph && curr->sz + 4 < curr->cap) {
+                        printf("HYPH - try [%s]\n", buf);
                         int hypres = hyphenation(buf, hyps, MAX_HYPS);
                         if (hypres == BOOK_SUCCESS) {
                             size_t mx = curr->cap - curr->sz - 2;
