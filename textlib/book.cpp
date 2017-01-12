@@ -321,7 +321,7 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                     printf("Buffer (used %d bytes) too small to keep %d characters (req: %d bytes)\n", (int)curr->bt_sz, (int)max_width, (int)slen);
                     return head;
                 }
-                if (curr->sz != 0) {
+                if (curr->sz != 0 && curr->line[curr->bt_sz - 1] != ' ') {
                     strcat(curr->line, " ");
                     curr->bt_sz += 1;
                     curr->sz += 1;
