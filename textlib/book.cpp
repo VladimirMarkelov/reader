@@ -173,7 +173,7 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
     }
 
     size_t max_width = (opts == NULL ? 80 : opts->width);
-    if (max_width < 20 || max_width > 300) {
+    if (max_width < 20 || max_width > 250) {
         return head;
     }
 

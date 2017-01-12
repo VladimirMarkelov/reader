@@ -1331,6 +1331,52 @@ int DLL_EXPORT utf_is_first_char_upper(char *str) {
     return (cp_lower != cp_upper) && (cp == cp_upper);
 }
 
+int DLL_EXPORT utf_make_wide(char *str, size_t buf_sz, size_t width) {
+    if (str == NULL || width > 250) {
+        return BOOK_INVALID_ARG;
+    }
+
+    size_t chw = utf_len(str);
+    if (width - chw > 10 || width < chw) {
+        return BOOK_CONVERT_FAIL;
+    }
+
+    if (buf_sz < (strlen(str) + width - chw)) {
+        return BOOK_BUFFER_SMALL;
+    }
+
+    size_t words = utf_word_count(str, 0), curr_wrd = 0;
+
+    if (words < 3) {
+        return BOOK_SUCCESS;
+    }
+
+    double to_add = (double)(words - 1) / (double)(width - chw), curr_sp = 0.0;
+    char *tmp = (char*)malloc(sizeof(char) * buf_sz);
+    if (tmp == NULL) {
+        return BOOK_NO_MEMORY;
+    }
+    tmp[buf_sz - 1] = '\0';
+
+    utf8proc_uint8_t *utftmp = (utf8proc_uint8_t*)tmp;
+    utf8proc_uint8_t *utfstr = (utf8proc_uint8_t*)str;
+    utf8proc_int32_t cp;
+    size_t c_len;
+
+    while (*utfstr != '\0') {
+        c_len = utf8proc_iterate(utftmp, -1, &cp);
+        if (utf_cp_is_space(cp)) {
+            curr_wrd++;
+            --------------------
+        } else {
+            utf8proc_encode_char(cp, utftmp);
+            utfstr += c_len;
+            utftmp += c_len;
+        }
+    }
+
+    return BOOK_SUCCESS;
+}
 
 //#ifdef _WIN32
 //    // Windows (x64 and x86)
