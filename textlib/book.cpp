@@ -250,7 +250,7 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                 printf("Line = [%s]\nNext word %d[%d + %d]: [%s]\n", curr->line, (int)strlen(buf), (int)cnt, (int)curr->sz, buf);
 
                 word = buf;
-                if (curr->cap < curr->sz + cnt) {
+                if (curr->cap <= curr->sz + cnt) {
                     if (do_hyph && curr->sz + 4 < curr->cap) {
                         printf("HYPH - try [%s]\n", buf);
                         int hypres = hyphenation(buf, hyps, MAX_HYPS);
@@ -301,6 +301,10 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                                 printf("Word the rest [%s]\n", word);
                             }
                         }
+                    }
+
+                    if (widen && curr->attr != TEXT_TITLE && curr->attr != TEXT_EPIGRAPH) {
+                        utf_make_wide(curr->line, FORMAT_BUF_SIZE, max_width);
                     }
 
                     curr = new_preformat_line(curr, max_width);
