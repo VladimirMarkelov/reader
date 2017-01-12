@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1484172891 source:c:\users\vladimir.markelov\projects\c\my\reader\main.cpp
+1484173007 source:c:\users\vladimir.markelov\projects\c\my\reader\main.cpp
 	<iostream>
 	"book.h"
 	"bookutil.h"
@@ -115,7 +115,7 @@
 1482560775 c:\users\vvm\projects\cpp\reader\plaintext\plaintext.h
 	"bookext.h"
 
-1483560315 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
+1484173901 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
 	<windows.h>
 
 1481063086 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\bookext.h

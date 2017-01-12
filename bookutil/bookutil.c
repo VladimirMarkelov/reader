@@ -1337,21 +1337,26 @@ int DLL_EXPORT utf_make_wide(char *str, size_t buf_sz, size_t width) {
     }
 
     size_t chw = utf_len(str);
-    if (width - chw > 10 || width < chw) {
+    if (width < chw) {
         return BOOK_CONVERT_FAIL;
     }
 
-    if (buf_sz < (strlen(str) + width - chw)) {
+    size_t sp_diff = width - chw;
+    if (sp_diff > 10) {
+        return BOOK_SUCCESS;
+    }
+
+    if (buf_sz < (strlen(str) + sp_diff)) {
         return BOOK_BUFFER_SMALL;
     }
 
     size_t words = utf_word_count(str, 0), curr_wrd = 0;
 
-    if (words < 3) {
+    if (words < 2) {
         return BOOK_SUCCESS;
     }
 
-    double to_add = (double)(words - 1) / (double)(width - chw), curr_sp = 0.0;
+    double to_add = (double)(sp_diff) / (double)(words - 1), curr_sp = 0.0;
     char *tmp = (char*)malloc(sizeof(char) * buf_sz);
     if (tmp == NULL) {
         return BOOK_NO_MEMORY;
@@ -1361,19 +1366,61 @@ int DLL_EXPORT utf_make_wide(char *str, size_t buf_sz, size_t width) {
     utf8proc_uint8_t *utftmp = (utf8proc_uint8_t*)tmp;
     utf8proc_uint8_t *utfstr = (utf8proc_uint8_t*)str;
     utf8proc_int32_t cp;
-    size_t c_len;
+    size_t c_len, real_sz = 0, real_bytes = 0, sp_put = 0, prev_sp = 0;
 
     while (*utfstr != '\0') {
-        c_len = utf8proc_iterate(utftmp, -1, &cp);
-        if (utf_cp_is_space(cp)) {
+        c_len = utf8proc_iterate(utfstr, -1, &cp);
+
+        if (sp_put < sp_diff && utf_cp_is_space(cp)) {
             curr_wrd++;
-            --------------------
+            if (curr_wrd == words - 1) {
+                while (sp_put < sp_diff) {
+                    *utftmp = ' ';
+                    utftmp++;
+                    real_bytes += c_len;
+                    real_sz++;
+                    sp_put++;
+                }
+                utf8proc_encode_char(cp, utftmp);
+                utfstr += c_len;
+                utftmp += c_len;
+                real_bytes += c_len;
+                real_sz++;
+            } else {
+                curr_sp += to_add;
+                int spcnt = (int)curr_sp - prev_sp;
+                prev_sp = (int)curr_sp;
+                while (spcnt > 0) {
+                    *utftmp = ' ';
+                    utftmp++;
+                    real_bytes += c_len;
+                    real_sz++;
+                    spcnt--;
+                    sp_put++;
+                }
+
+                /* copy all whitespaces */
+                while (*utfstr != '\0' && utf_cp_is_space(cp)) {
+                    utf8proc_encode_char(cp, utftmp);
+                    utfstr += c_len;
+                    utftmp += c_len;
+                    real_bytes += c_len;
+                    real_sz++;
+                    c_len = utf8proc_iterate(utfstr, -1, &cp);
+                }
+            }
         } else {
             utf8proc_encode_char(cp, utftmp);
             utfstr += c_len;
             utftmp += c_len;
+            real_bytes += c_len;
+            real_sz++;
         }
     }
+
+    *utftmp = '\0';
+    strcpy(str, tmp);
+    free(tmp);
 
     return BOOK_SUCCESS;
 }

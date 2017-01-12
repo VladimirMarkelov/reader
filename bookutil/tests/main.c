@@ -640,6 +640,30 @@ const char* test_utf_funcs() {
     em = utf_line_is_empty("    \x09 some text ");
     ut_assert("Not empty line", em == 0);
 
+    char orig1[64] = "",
+         orig2[64] = "abcd efg",
+         orig3[64] = "abcdefgijk",
+         orig4[64] = "abcde efghi",
+         orig5[64] = "abcde efgh 01234 9810 23456",
+         orig6[64] = "abcde efgh 01234 9810 23456"
+         ;
+    int res = utf_make_wide(NULL, 64, 20);
+    ut_assert("Widen NULL string", res == BOOK_INVALID_ARG);
+    res = utf_make_wide(orig1, 64, 20);
+    ut_assert("Widen Empty string", res == BOOK_SUCCESS);
+    res = utf_make_wide(orig2, 64, 20);
+    ut_assert("Widen Too short string", res == BOOK_SUCCESS && strcmp(orig2, "abcd efg") == 0);
+    res = utf_make_wide(orig3, 64, 12);
+    ut_assert("Widen One long word", res == BOOK_SUCCESS && strcmp(orig3, "abcdefgijk") == 0);
+    res = utf_make_wide(orig3, 64, 8);
+    ut_assert("Widen Too long string", res == BOOK_CONVERT_FAIL && strcmp(orig3, "abcdefgijk") == 0);
+    res = utf_make_wide(orig4, 64, 14);
+    ut_assert("Widen Two words", res == BOOK_SUCCESS && strlen(orig4) == 14 && strcmp(orig4, "abcde    efghi") == 0);
+    res = utf_make_wide(orig5, 64, 31);
+    ut_assert("Widen Many words - 1 space after each word", res == BOOK_SUCCESS && strlen(orig5) == 31 && strcmp(orig5, "abcde  efgh  01234  9810  23456") == 0);
+    res = utf_make_wide(orig6, 64, 33);
+    ut_assert("Widen Many words - many spaces", res == BOOK_SUCCESS && strlen(orig6) == 33 && strcmp(orig6, "abcde  efgh   01234  9810   23456") == 0);
+
     return 0;
 }
 
