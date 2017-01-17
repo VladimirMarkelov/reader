@@ -1,10 +1,10 @@
 # depslib dependency file v1.0
-1484262178 source:c:\users\vladimir.markelov\projects\c\my\reader\main.cpp
-	<iostream>
+1484613537 source:c:\users\vladimir.markelov\projects\c\my\reader\main.cpp
+	<stdio.h>
 	"book.h"
 	"bookutil.h"
 	"bookext.h"
-	"system/files.h"
+	"files.h"
 
 1478738606 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\encoding.cpp
 	<stdlib.h>
@@ -32,7 +32,7 @@
 
 1478558857 c:\users\vladimir.markelov\projects\c\my\reader\textlib\fileload.h
 
-1484262083 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.cpp
+1484608917 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.cpp
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -43,8 +43,10 @@
 	"bookext.h"
 	"plaintext.h"
 	"bookiter.h"
+	<windows.h>
+	<dlfcn.h>
 
-1484172447 c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.h
+1484613438 c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.h
 	<stdio.h>
 
 1479753824 c:\users\vladimir.markelov\projects\c\my\reader\base\base.h
@@ -149,4 +151,35 @@
 	<stdbool.h>
 	<inttypes.h>
 	<limits.h>
+
+1484612920 source:c:\users\vladimir.markelov\projects\c\my\reader\system\configfile.c
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	<iconv.h>
+	"configfile.h"
+
+1484611647 c:\users\vladimir.markelov\projects\c\my\reader\system\configfile.h
+
+1483463890 source:c:\users\vladimir.markelov\projects\c\my\reader\system\files.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iconv.h>
+	"bookutil.h"
+	"files.h"
+
+1484613448 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<iconv.h>
+	"utf8proc.h"
+	"book.h"
+	"bookutil.h"
+	"bookext.h"
+	"plaintext.h"
+	"bookiter.h"
+	<windows.h>
+	<dlfcn.h>
 

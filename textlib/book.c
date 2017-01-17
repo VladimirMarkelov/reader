@@ -13,6 +13,12 @@
 #define FORMAT_BUF_SIZE 1024
 #define MAX_HYPS 32
 
+#ifdef _WIN32
+#include <windows.h>
+#else
+#include <dlfcn.h>
+#endif
+
 struct plugin_info {
     struct plugin_info *next;
     fn_load_book load;
@@ -20,6 +26,11 @@ struct plugin_info {
     fn_supported supported;
     fn_unload_book unload;
     /* TODO: HANDLE to library to keep it loaded */
+#ifdef _WIN32
+    HANDLE handle;
+#else
+    void *handle;
+#endif
 };
 static struct plugin_info *head = NULL;
 
@@ -29,12 +40,13 @@ void load_plugins() {
      * processor must be the last in the list
      */
 
-    head = (struct plugin_info*)malloc(sizeof(plugin_info));
+    head = (struct plugin_info*)malloc(sizeof(struct plugin_info));
     head->next = NULL;
     head->enc = get_encoding;
     head->load = prepare_book;
     head->supported = can_open;
     head->unload = free_book;
+    head->handle = 0;
 }
 
 void unload_plugins() {
@@ -114,7 +126,7 @@ int book_open(char* path, struct book_info *book, int reading) {
     return book->status;
 }
 
-void book_close(book_info *book) {
+void book_close(struct book_info *book) {
     if (book == NULL) {
         return;
     }
@@ -181,8 +193,9 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
     if (head == NULL) {
         return head;
     }
+    head->offset = 0;
 
-    book_iterator *bit = iterator_init(book);
+    struct book_iterator *bit = iterator_init(book);
     if (bit == NULL) {
         return head;
     }
@@ -208,9 +221,11 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                         printf("META --- OFF \n");
                         curr_section = 0;
                         curr = new_preformat_line(curr, max_width);
+                        curr->offset = bit->pos;
 
                         if (curr && (buf[1] & 0x7F) == TEXT_TITLE) {
                             curr = new_preformat_line(curr, max_width);
+                            curr->offset = bit->pos;
                         }
 
                         break;
@@ -308,6 +323,7 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                     }
 
                     curr = new_preformat_line(curr, max_width);
+                    curr->offset = bit->pos;
                 }
 
                 if (cnt > max_width) {
@@ -342,6 +358,7 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                     if (curr == NULL) {
                         return head;
                     }
+                    curr->offset = bit->pos;
                     curr->attr = TEXT_EPIGRAPH;
                     line_fill_char(curr, ' ', ind);
                 }

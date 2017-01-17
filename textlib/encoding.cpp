@@ -147,8 +147,8 @@ int detect_ru_encoding(const char *text, size_t sz) {
         return ENC_WIN1251;
     } else if (alt_cnt > win_cnt && alt_cnt > koi_cnt && alt_cnt > sz/10) {
         return ENC_DOS866;
-    } else if (alt_cnt > win_cnt && alt_cnt > koi_cnt && alt_cnt > sz/10) {
-        return ENC_DOS866;
+    } else if (koi_cnt > win_cnt && koi_cnt > alt_cnt && koi_cnt > sz/10) {
+        return ENC_KOI8R;
     }
 
     if (non_ascii_cnt == 0) {

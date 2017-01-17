@@ -37,7 +37,7 @@ struct book_info {
 };
 
 int book_open(char* path, struct book_info *book, int reading);
-void book_close(FILE* book);
+void book_close(struct book_info *book);
 
 struct pre_options {
     /* maximal text width */
@@ -54,6 +54,7 @@ struct book_preformat {
     size_t bt_sz;
     size_t indent;
     struct book_preformat* next;
+    size_t offset;
     int attr;
 };
 struct book_preformat* book_preformat_mono(const struct book_info *book, struct pre_options *opts);
