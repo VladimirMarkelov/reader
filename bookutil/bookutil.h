@@ -78,6 +78,7 @@ int DLL_EXPORT path_up(char *dir);
 int DLL_EXPORT to_upper(char *str, size_t sz);
 int DLL_EXPORT to_lower(char *str, size_t sz);
 int DLL_EXPORT make_relative(char *dir, char *main_dir);
+int DLL_EXPORT path_is_absolute(char *dir);
 
 // copyright sign as it is displayed by utf8proc
 #define COPYRIGHT 9426

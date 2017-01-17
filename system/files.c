@@ -36,12 +36,30 @@ int get_app_directory(char *dir, size_t len) {
     if (ires == (size_t)-1) {
         return (errno == E2BIG) ? BOOK_BUFFER_SMALL : BOOK_CONVERT_FAIL;
     }
+
+    size_t sz = strlen(dir);
+    char *end = dir + sz;
+    while (end != dir) {
+        if (*end == '\\' || *end == '/') {
+            *end = '\0';
+            break;
+        }
+        *end = '\0';
+        --end;
+    }
 #else
     char tmp[32];
     sprintf(tmp, "/proc/%d/exe", getpid());
     int bytes = MIN(readlink(tmp, dir, len), len - 1);
     if(bytes >= 0) {
-        pBuf[bytes] = '\0';
+        dir[bytes] = '\0';
+    }
+
+    size_t sz = strlen(dir);
+    char *end = dir + sz;
+    while (end != dir && *end != '/') {
+        *end = '\0';
+        --end;
     }
 #endif
     return BOOK_SUCCESS;

@@ -223,7 +223,7 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                         curr = new_preformat_line(curr, max_width);
                         curr->offset = bit->pos;
 
-                        if (curr && (buf[1] & 0x7F) == TEXT_TITLE) {
+                        if ((buf[1] & 0x7F) == TEXT_TITLE) {
                             curr = new_preformat_line(curr, max_width);
                             curr->offset = bit->pos;
                         }

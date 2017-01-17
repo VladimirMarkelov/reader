@@ -16,7 +16,7 @@ static int is_sep(char c) {
 #endif
 }
 
-static int path_has_root(char *dir) {
+int path_is_absolute(char *dir) {
     if (dir == NULL || *dir == '\0') {
         return 0;
     }
@@ -26,7 +26,7 @@ static int path_has_root(char *dir) {
            && dir[1] == ':'
            && (dir[2] == '\0' || is_sep(dir[2]));
 #else
-    return dir[0] == '/' && dir[1] == '\0';
+    return dir[0] == '/';
 #endif
 }
 
@@ -521,7 +521,7 @@ static int is_dir_inside(char *dir, char *main_dir) {
         return BOOK_INVALID_ARG;
     }
 
-    if (! path_has_root(dir) || ! path_has_root(main_dir)) {
+    if (! path_is_absolute(dir) || ! path_is_absolute(main_dir)) {
         return BOOK_NO_PATH;
     }
 

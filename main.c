@@ -4,6 +4,11 @@
 #include "bookutil.h"
 #include "bookext.h"
 #include "files.h"
+#include "configfile.h"
+
+void cfcb (const char *key, const char *val) {
+    printf("Found [%s] : [%s]\n", key, val);
+}
 
 int main()
 {
@@ -51,6 +56,16 @@ int main()
     }
     fclose(fr);
     printf("Lines = %d\n", i);
+
+    char apppath[1024];
+    get_app_directory(apppath, 1024);
+    char conffile[1024] = {0};
+    strcpy(conffile, apppath);
+    append_path(conffile, 1024, "reader.conf");
+    printf("Path [%s]\n", conffile);
+
+    res = load_config(conffile, cfcb);
+    printf("Config loaded %d\n", res);
 
 //    FILE *f = fopen("example.txt", "r");
 //    char fb[20];

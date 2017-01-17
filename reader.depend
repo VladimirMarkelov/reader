@@ -117,7 +117,7 @@
 1482560775 c:\users\vvm\projects\cpp\reader\plaintext\plaintext.h
 	"bookext.h"
 
-1484173901 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
+1484696005 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
 	<windows.h>
 
 1481063086 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\bookext.h
@@ -152,16 +152,18 @@
 	<inttypes.h>
 	<limits.h>
 
-1484612920 source:c:\users\vladimir.markelov\projects\c\my\reader\system\configfile.c
+1484693277 source:c:\users\vladimir.markelov\projects\c\my\reader\system\configfile.c
 	<stdio.h>
 	<string.h>
 	<stdlib.h>
 	<iconv.h>
+	"utf8proc.h"
+	"bookutil.h"
 	"configfile.h"
 
-1484611647 c:\users\vladimir.markelov\projects\c\my\reader\system\configfile.h
+1484614252 c:\users\vladimir.markelov\projects\c\my\reader\system\configfile.h
 
-1483463890 source:c:\users\vladimir.markelov\projects\c\my\reader\system\files.c
+1484695911 source:c:\users\vladimir.markelov\projects\c\my\reader\system\files.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -169,7 +171,7 @@
 	"bookutil.h"
 	"files.h"
 
-1484613448 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.c
+1484673754 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -183,10 +185,11 @@
 	<windows.h>
 	<dlfcn.h>
 
-1484613770 source:c:\users\vladimir.markelov\projects\c\my\reader\main.c
+1484694283 source:c:\users\vladimir.markelov\projects\c\my\reader\main.c
 	<stdio.h>
 	"book.h"
 	"bookutil.h"
 	"bookext.h"
 	"files.h"
+	"configfile.h"
 
