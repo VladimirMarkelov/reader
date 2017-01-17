@@ -183,3 +183,10 @@
 	<windows.h>
 	<dlfcn.h>
 
+1484613770 source:c:\users\vladimir.markelov\projects\c\my\reader\main.c
+	<stdio.h>
+	"book.h"
+	"bookutil.h"
+	"bookext.h"
+	"files.h"
+
