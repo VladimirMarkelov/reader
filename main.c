@@ -67,18 +67,5 @@ int main()
     res = load_config(conffile, cfcb);
     printf("Config loaded %d\n", res);
 
-//    FILE *f = fopen("example.txt", "r");
-//    char fb[20];
-//    fgets(fb, 20, f);
-//    fclose(f);
-//    char *pos;
-//    if ((pos=strchr(fb, '\n')) != NULL)
-//        *pos = '\0';
-//    printf("--: %s :--\n", fb);
-
-    //if (f) {
-    //    fclose(f);
-    //}
-
     return 0;
 }

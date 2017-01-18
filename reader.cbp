@@ -48,6 +48,7 @@
 			<Add library="iconv" />
 			<Add directory="../../libs" />
 		</Linker>
+		<Unit filename="bookconfig.h" />
 		<Unit filename="bookiter/bookiter.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -68,6 +69,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="system/files.h" />
+		<Unit filename="system/logger.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="system/logger.h" />
 		<Unit filename="textlib/book.c">
 			<Option compilerVar="CC" />
 		</Unit>
