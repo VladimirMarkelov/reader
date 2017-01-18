@@ -100,6 +100,7 @@ int DLL_EXPORT utf_line_is_empty(char *str);
 int DLL_EXPORT utf_is_first_char_lower(char *str);
 int DLL_EXPORT utf_is_first_char_upper(char *str);
 int DLL_EXPORT utf_make_wide(char *str, size_t buf_sz, size_t width);
+int DLL_EXPORT utf_equal_no_case(const char *str1, const char *str2);
 
 int DLL_EXPORT hyphenation(char *str, size_t *hyph, size_t sz);
 

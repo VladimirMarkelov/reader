@@ -664,6 +664,21 @@ const char* test_utf_funcs() {
     res = utf_make_wide(orig6, 64, 33);
     ut_assert("Widen Many words - many spaces", res == BOOK_SUCCESS && strlen(orig6) == 33 && strcmp(orig6, "abcde  efgh   01234  9810   23456") == 0);
 
+    res = utf_equal_no_case(NULL, NULL);
+    ut_assert("Both NULL equal", res == 1);
+    res = utf_equal_no_case(NULL, "");
+    ut_assert("One NULL not equal - 1", res == 0);
+    res = utf_equal_no_case("", NULL);
+    ut_assert("One NULL not equal - 2", res == 0);
+    res = utf_equal_no_case("", "");
+    ut_assert("Empty equal", res == 1);
+    res = utf_equal_no_case("AbcD", "abcd");
+    ut_assert("Ascii equal", res == 1);
+    res = utf_equal_no_case("AbcD", "abcde");
+    ut_assert("Ascii not equal", res == 0);
+    res = utf_equal_no_case("пример", "приМер");
+    ut_assert("Non-ascii equal", res == 1);
+
     return 0;
 }
 

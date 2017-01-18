@@ -4,11 +4,7 @@
 #include "bookutil.h"
 #include "bookext.h"
 #include "files.h"
-#include "configfile.h"
-
-void cfcb (const char *key, const char *val) {
-    printf("Found [%s] : [%s]\n", key, val);
-}
+#include "bookconfig.h"
 
 int main()
 {
@@ -37,10 +33,14 @@ int main()
     fwrite(book_info.text, sizeof(char), book_info.text_sz, f);
     fclose(f);
 
+    struct reader_conf rconf;
+    load_reader_config(&rconf);
+
     struct pre_options opts;
     opts.width = 80;
-    opts.hyph_disable = 0;
-    opts.add_spaces = 1;
+    opts.hyph_disable = ! rconf.hyphen;
+    opts.add_spaces = rconf.widen;
+
     struct book_preformat* fmt = book_preformat_mono(&book_info, &opts);
     struct book_preformat* crr = fmt;
     if (crr == NULL) {
@@ -56,16 +56,6 @@ int main()
     }
     fclose(fr);
     printf("Lines = %d\n", i);
-
-    char apppath[1024];
-    get_app_directory(apppath, 1024);
-    char conffile[1024] = {0};
-    strcpy(conffile, apppath);
-    append_path(conffile, 1024, "reader.conf");
-    printf("Path [%s]\n", conffile);
-
-    res = load_config(conffile, cfcb);
-    printf("Config loaded %d\n", res);
 
     return 0;
 }

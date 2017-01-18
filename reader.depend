@@ -117,7 +117,7 @@
 1482560775 c:\users\vvm\projects\cpp\reader\plaintext\plaintext.h
 	"bookext.h"
 
-1484696005 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
+1484781158 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
 	<windows.h>
 
 1481063086 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\bookext.h
@@ -185,11 +185,29 @@
 	<windows.h>
 	<dlfcn.h>
 
-1484694283 source:c:\users\vladimir.markelov\projects\c\my\reader\main.c
+1484781321 source:c:\users\vladimir.markelov\projects\c\my\reader\main.c
 	<stdio.h>
 	"book.h"
 	"bookutil.h"
 	"bookext.h"
 	"files.h"
+	"bookconfig.h"
+
+1484767570 source:c:\users\vladimir.markelov\projects\c\my\reader\system\logger.c
+	<stdio.h>
+	<time.h>
+	<stdarg.h>
+	"logger.h"
+
+1484767539 c:\users\vladimir.markelov\projects\c\my\reader\system\logger.h
+
+1484781726 source:c:\users\vladimir.markelov\projects\c\my\reader\bookconfig.c
+	<stdlib.h>
 	"configfile.h"
+	"bookutil.h"
+	"files.h"
+	"logger.h"
+	"bookconfig.h"
+
+1484779517 c:\users\vladimir.markelov\projects\c\my\reader\bookconfig.h
 

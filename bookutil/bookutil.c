@@ -1425,6 +1425,44 @@ int DLL_EXPORT utf_make_wide(char *str, size_t buf_sz, size_t width) {
     return BOOK_SUCCESS;
 }
 
+int DLL_EXPORT utf_equal_no_case(const char *str1, const char *str2) {
+    if (str1 == NULL && str2 == NULL) {
+        return 1;
+    }
+    if (str1 == NULL || str2 == NULL) {
+        return 0;
+    }
+
+    utf8proc_uint8_t *utfstr1 = (utf8proc_uint8_t*)str1;
+    utf8proc_uint8_t *utfstr2 = (utf8proc_uint8_t*)str2;
+    utf8proc_int32_t cp1, cp2;
+    size_t l1, l2;
+
+    while (1) {
+        if (*utfstr1 == '\0' && *utfstr2 == '\0') {
+            return 1;
+        }
+        if (*utfstr1 == '\0' || *utfstr2 == '\0') {
+            return 0;
+        }
+
+        l1 = utf8proc_iterate(utfstr1, -1, &cp1);
+        l2 = utf8proc_iterate(utfstr1, -1, &cp2);
+        if (l1 != l2 || cp1 != cp2) {
+            return 0;
+        }
+
+        if (cp1 == -1 || cp2 == -1) {
+            return -1;
+        }
+
+        utfstr1 += l1;
+        utfstr2 += l2;
+    }
+
+    return 1;
+}
+
 //#ifdef _WIN32
 //    // Windows (x64 and x86)
 //#elif __unix__ // all unices, not all compilers
