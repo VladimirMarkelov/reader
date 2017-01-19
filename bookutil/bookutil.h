@@ -55,6 +55,7 @@ size_t DLL_EXPORT convert_from_utf8_buffer(char *in, size_t in_sz, char *out, si
 #define BOOK_NO_TEXT 10
 #define BOOK_EQUAL 11
 #define BOOK_NOT_EQUAL 12
+#define BOOK_EXEC_FAIL 16
 
 #define BOOK_ITEM_NEW_LINE 13
 #define BOOK_ITEM_META 14

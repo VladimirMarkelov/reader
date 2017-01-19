@@ -117,7 +117,7 @@
 1482560775 c:\users\vvm\projects\cpp\reader\plaintext\plaintext.h
 	"bookext.h"
 
-1484785131 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
+1484867461 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
 	<windows.h>
 
 1481063086 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\bookext.h
@@ -186,7 +186,7 @@
 	"plaintext.h"
 	"bookiter.h"
 
-1484789170 source:c:\users\vladimir.markelov\projects\c\my\reader\main.c
+1484865756 source:c:\users\vladimir.markelov\projects\c\my\reader\main.c
 	<stdio.h>
 	"logger.h"
 	"book.h"
@@ -203,7 +203,7 @@
 
 1484767539 c:\users\vladimir.markelov\projects\c\my\reader\system\logger.h
 
-1484788837 source:c:\users\vladimir.markelov\projects\c\my\reader\bookconfig.c
+1484865662 source:c:\users\vladimir.markelov\projects\c\my\reader\bookconfig.c
 	<stdlib.h>
 	<stdio.h>
 	"configfile.h"
@@ -212,5 +212,21 @@
 	"logger.h"
 	"bookconfig.h"
 
-1484787837 c:\users\vladimir.markelov\projects\c\my\reader\bookconfig.h
+1484865665 c:\users\vladimir.markelov\projects\c\my\reader\bookconfig.h
+
+1484855052 source:c:\users\vladimir.markelov\projects\c\my\reader\system\zippedbook.c
+	"zippedbook.h"
+
+1484853858 c:\users\vladimir.markelov\projects\c\my\reader\system\zippedbook.h
+
+1484865665 c:\users\vladimir.markelov\projects\c\my\reader\system\bookconfig.h
+
+1484865662 source:c:\users\vladimir.markelov\projects\c\my\reader\system\bookconfig.c
+	<stdlib.h>
+	<stdio.h>
+	"configfile.h"
+	"bookutil.h"
+	"files.h"
+	"logger.h"
+	"bookconfig.h"
 

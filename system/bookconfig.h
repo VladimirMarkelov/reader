@@ -6,9 +6,11 @@ struct reader_conf {
     int widen;
     char enc[32];
     char *filename;
+    char *unzip;
 };
 
-int load_reader_config(struct reader_conf *conf);
-int process_app_arg(char *arg, struct reader_conf *conf);
+int load_reader_config();
+int process_app_arg(char *arg);
+const struct reader_conf* get_reader_options();
 
 #endif // BOOKCONFIG_H_20170117

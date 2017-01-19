@@ -36,13 +36,21 @@ static void config_cb(const char *key, const char *val) {
         }
         log_message("main.log", "Set option %s to %d [%s]\n", key, (int)v, val);
         local_conf.hyphen = v;
+    } else if (utf_equal_no_case(key, "7zip") == 1) {
+        log_message("main.log", "Set option %s to [%s]\n", key, val);
+        if (local_conf.unzip != NULL) {
+            free(local_conf.unzip);
+        }
+        local_conf.unzip = (char*)malloc(sizeof(char) * (strlen(val) + 1));
+        strcpy(local_conf.unzip, val);
     }
 }
 
-int load_reader_config(struct reader_conf *conf) {
+int load_reader_config() {
     local_conf.hyphen = 1;
     local_conf.widen = 0;
     local_conf.filename = NULL;
+    local_conf.unzip = NULL;
     local_conf.enc[0] = '\0';
 
     // TODO: detect portable/not
@@ -53,14 +61,10 @@ int load_reader_config(struct reader_conf *conf) {
     log_message("main.log", "Config file path: %s\n", conf_path);
     int res = load_config(conf_path, config_cb);
 
-    if (res == CONFIG_SUCCESS && conf != NULL) {
-        *conf = local_conf;
-    }
-
     return res == CONFIG_SUCCESS ? BOOK_SUCCESS : BOOK_INVALID_FILE;
 }
 
-int process_app_arg(char *arg, struct reader_conf *conf) {
+int process_app_arg(char *arg) {
     if (arg == NULL) {
         return BOOK_INVALID_ARG;
     }
@@ -92,9 +96,9 @@ int process_app_arg(char *arg, struct reader_conf *conf) {
         }
     }
 
-    if (conf != NULL) {
-        *conf = local_conf;
-    }
-
     return BOOK_SUCCESS;
+}
+
+const struct reader_conf* get_reader_options() {
+    return &local_conf;
 }

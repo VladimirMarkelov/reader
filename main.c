@@ -20,23 +20,24 @@ int main(int argc, char **argv) {
     book_info.encoding[0] = '\0';
 
 
-    struct reader_conf rconf;
-    load_reader_config(&rconf);
+    load_reader_config();
 
     for (int i = 1; i < argc; ++i) {
 #ifdef _WIN32
         char utf[512];
         int cnv = ucs_to_utf(argv[i], utf, 512);
         if (cnv == BOOK_SUCCESS) {
-            process_app_arg(utf, &rconf);
+            process_app_arg(utf);
         }
 #else
-        process_app_arg(argv[i], &rconf);
+        process_app_arg(argv[i]);
 #endif
     }
-    if (rconf.enc[0] != '\0') {
-        log_message("main.log", "Use %s encoding to open book\n", rconf.enc);
-        strcpy(book_info.encoding, rconf.enc);
+
+    const struct reader_conf *rconf = get_reader_options();
+    if (rconf->enc[0] != '\0') {
+        log_message("main.log", "Use %s encoding to open book\n", rconf->enc);
+        strcpy(book_info.encoding, rconf->enc);
     }
 
     int res = book_open(path, &book_info, BOOK_READ);
@@ -55,8 +56,8 @@ int main(int argc, char **argv) {
 
     struct pre_options opts;
     opts.width = 80;
-    opts.hyph_disable = ! rconf.hyphen;
-    opts.add_spaces = rconf.widen;
+    opts.hyph_disable = ! rconf->hyphen;
+    opts.add_spaces = rconf->widen;
 
     struct book_preformat* fmt = book_preformat_mono(&book_info, &opts);
     struct book_preformat* crr = fmt;
