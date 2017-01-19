@@ -84,6 +84,13 @@ int DLL_EXPORT path_is_absolute(char *dir);
 #define COPYRIGHT 9426
 //#define COPYRIGHT 0x24d2
 
+#ifdef _WIN32
+int DLL_EXPORT ucs_to_utf(wchar_t *ucs2, char *utf, size_t utf_sz);
+int DLL_EXPORT utf_to_ucs(char *utf, wchar_t *ucs2, size_t ucs_sz);
+#else
+    // Not required for *NIX
+#endif
+
 size_t DLL_EXPORT utf_len(char *str);
 char* DLL_EXPORT utf_advance(char *str, size_t cnt);
 int DLL_EXPORT utf_substr(char *str, size_t from, size_t to, char *dest, size_t dest_sz);

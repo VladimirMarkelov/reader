@@ -24,6 +24,8 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-std=c99" />
+					<Add option="-DUNICODE" />
+					<Add option="-D_UNICODE" />
 					<Add directory="bookutil" />
 					<Add directory="include" />
 					<Add directory="plaintext" />
@@ -32,6 +34,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
+					<Add option="-municode" />
 					<Add library="bookutil" />
 					<Add directory="bookutil/bin/Release" />
 				</Linker>

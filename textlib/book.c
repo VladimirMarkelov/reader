@@ -14,9 +14,9 @@
 #define MAX_HYPS 32
 
 #ifdef _WIN32
-#include <windows.h>
+//#include <windows.h>
 #else
-#include <dlfcn.h>
+//#include <dlfcn.h>
 #endif
 
 struct plugin_info {
@@ -27,9 +27,9 @@ struct plugin_info {
     fn_unload_book unload;
     /* TODO: HANDLE to library to keep it loaded */
 #ifdef _WIN32
-    HANDLE handle;
+//    HANDLE handle;
 #else
-    void *handle;
+//    void *handle;
 #endif
 };
 static struct plugin_info *head = NULL;
@@ -46,7 +46,7 @@ void load_plugins() {
     head->load = prepare_book;
     head->supported = can_open;
     head->unload = free_book;
-    head->handle = 0;
+    //head->handle = 0;
 }
 
 void unload_plugins() {
@@ -72,7 +72,7 @@ int book_open(char* path, struct book_info *book, int reading) {
     book->status = BOOK_LOAD_FAILED;
     book->zipped = BOOK_PLAIN_TEXT;
     book->text_sz = 0;
-    book->encoding[0] = '\0';
+    //book->encoding[0] = '\0';
 
     iconv_t h = iconv_open("UTF-16LE", "UTF-8");
 
@@ -116,8 +116,10 @@ int book_open(char* path, struct book_info *book, int reading) {
         book->status = BOOK_PARSE_INVALID_FORMAT;
     } else {
         printf("PLUGIN DETECTED\n");
-        if (plugin->enc(book) != BOOK_SUCCESS) {
-            printf("Failed to detect encoding\n");
+        if (book->encoding[0] == '\0') {
+            if (plugin->enc(book) != BOOK_SUCCESS) {
+                printf("Failed to detect encoding\n");
+            }
         }
         printf("   enc == %s\n", book->encoding);
         plugin->load(book);
@@ -215,10 +217,10 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
 
         switch (tp) {
             case BOOK_ITEM_META:
-                printf("META FOUND --------- \n");
+                //printf("META FOUND --------- \n");
                 if (buf[0] == TEXT_PART) {
                     if ((buf[1] & TEXT_OFF) == TEXT_OFF) {
-                        printf("META --- OFF \n");
+                        //printf("META --- OFF \n");
                         curr_section = 0;
                         curr = new_preformat_line(curr, max_width);
                         curr->offset = bit->pos;
@@ -233,7 +235,7 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
 
                     switch (buf[1] & 0x7F) {
                         case TEXT_TITLE:
-                            printf("TITLE found\n");
+                            //printf("TITLE found\n");
                             width = iterator_line_len(bit);
                             if (width < max_width) {
                                 ind = (max_width - width) / 2;
@@ -243,7 +245,7 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                             curr->attr = TEXT_TITLE;
                             break;
                         case TEXT_EPIGRAPH:
-                            printf("EPIGRAPH found\n");
+                            //printf("EPIGRAPH found\n");
                             width = iterator_section_max_width(bit);
                             if (width < max_width) {
                                 ind = max_width - width;
@@ -253,7 +255,7 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                             curr->attr = TEXT_EPIGRAPH;
                             break;
                         case TEXT_PARA:
-                            printf("PARAGRAPH found\n");
+                            //printf("PARAGRAPH found\n");
                             line_fill_char(curr, ' ', PARA_INDENT);
                             break;
                         default:
@@ -262,12 +264,12 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                 }
                 break;
             case BOOK_ITEM_TEXT:
-                printf("Line = [%s]\nNext word %d[%d + %d]: [%s]\n", curr->line, (int)strlen(buf), (int)cnt, (int)curr->sz, buf);
+                //printf("Line = [%s]\nNext word %d[%d + %d]: [%s]\n", curr->line, (int)strlen(buf), (int)cnt, (int)curr->sz, buf);
 
                 word = buf;
                 if (curr->cap <= curr->sz + cnt) {
                     if (do_hyph && curr->sz + 4 < curr->cap) {
-                        printf("HYPH - try [%s]\n", buf);
+                        //printf("HYPH - try [%s]\n", buf);
                         int hypres = hyphenation(buf, hyps, MAX_HYPS);
                         if (hypres == BOOK_SUCCESS) {
                             size_t mx = curr->cap - curr->sz - 2;
@@ -283,7 +285,7 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                             }
 
                             if (best != 0) {
-                                printf("Get first %d letters\n", (int)best);
+                                //printf("Get first %d letters\n", (int)best);
                                 strcat(curr->line, " ");
                                 curr->bt_sz += 1;
                                 curr->sz += 1;
@@ -310,10 +312,10 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                                     strcpy((char *)dst, "-");
                                 }
 
-                                printf("Line NOW: [%s]\n", curr->line);
+                                //printf("Line NOW: [%s]\n", curr->line);
                                 word = (char *)src;
                                 cnt -= best;
-                                printf("Word the rest [%s]\n", word);
+                                //printf("Word the rest [%s]\n", word);
                             }
                         }
                     }
@@ -331,10 +333,10 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                     break;
                 }
 
-                printf("Add to current line: %d   <--> %d - %d[%d]\n", (int)cnt, (int)curr->cap, (int)curr->sz, (int)curr->bt_sz);
+                //printf("Add to current line: %d   <--> %d - %d[%d]\n", (int)cnt, (int)curr->cap, (int)curr->sz, (int)curr->bt_sz);
                 slen = strlen(word);
                 if (slen + curr->bt_sz >= FORMAT_BUF_SIZE - 1) {
-                    printf("Buffer (used %d bytes) too small to keep %d characters (req: %d bytes)\n", (int)curr->bt_sz, (int)max_width, (int)slen);
+                    //printf("Buffer (used %d bytes) too small to keep %d characters (req: %d bytes)\n", (int)curr->bt_sz, (int)max_width, (int)slen);
                     return head;
                 }
                 if (curr->sz != 0 && curr->line[curr->bt_sz - 1] != ' ') {
@@ -345,7 +347,7 @@ struct book_preformat* book_preformat_mono(const struct book_info *book, struct 
                 strcat(curr->line, word);
                 curr->bt_sz += slen;
                 curr->sz += cnt;
-                printf("LINE %d - %d [%s]\n", (int)curr->sz, (int)curr->bt_sz, curr->line);
+                //printf("LINE %d - %d [%s]\n", (int)curr->sz, (int)curr->bt_sz, curr->line);
 
                 break;
             case BOOK_NO_TEXT:

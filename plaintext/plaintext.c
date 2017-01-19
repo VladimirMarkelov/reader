@@ -182,13 +182,13 @@ int prepare_book (struct book_info *info) {
     char last_ch;
 
     while (*ptr != '\0') {
-        printf(" ... next loop - [%d]\n", (int)*ptr);
+        //printf(" ... next loop - [%d]\n", (int)*ptr);
         no_sp = utf_skip_spaces(ptr, &space_cnt);
         line_len = utf_line_length(no_sp, NULL);
-        printf("..next line: %d spaces - %p\n", (int)space_cnt, no_sp);
+        //printf("..next line: %d spaces - %p\n", (int)space_cnt, no_sp);
 
         if (*no_sp == '\0' || *no_sp == '\x0D' || *no_sp == '\x0A') {
-            printf("    empty line\n");
+            //printf("    empty line\n");
             ext_buffer_put_char(booktext, ENDLN);
             close_tag(&last_type, booktext, -1);
             start_tag(booktext, TEXT_PARA);
@@ -237,7 +237,7 @@ int prepare_book (struct book_info *info) {
                 /* title - for simplicity multi-line titles are treated as
                  * a few separate titles
                  */
-                printf("Title detected\n");
+                //printf("Title detected\n");
                 start_tag(booktext, TEXT_TITLE);
                 line_end = utf_end_of_line(no_sp);
                 ext_buffer_put_string(booktext, no_sp, line_end - no_sp);
@@ -248,7 +248,7 @@ int prepare_book (struct book_info *info) {
             }
         } else {
             /* simple text */
-            printf("Simple Paragraph Text\n");
+            //printf("Simple Paragraph Text\n");
             close_tag(&last_type, booktext, TEXT_EPIGRAPH);
             any_paragraph = 1;
 
@@ -267,13 +267,13 @@ int prepare_book (struct book_info *info) {
                     /* paragraph starts with the line that has >=2
                      * leading spaces or after non-paragraph section
                      */
-                    printf("  new paragraph\n");
+                    //printf("  new paragraph\n");
                     close_tag(&last_type, booktext, TEXT_PARA);
                     start_tag(booktext, TEXT_PARA);
                     last_type = TEXT_PARA;
                 } else if (*no_sp != '\0' && utf_starts_with(no_sp, "-") == BOOK_EQUAL) {
                     /* direct speech */
-                    printf("  direct speech\n");
+                    //printf("  direct speech\n");
                     close_tag(&last_type, booktext, TEXT_PARA);
                     start_tag(booktext, TEXT_PARA);
                     last_type = TEXT_PARA;
@@ -302,7 +302,7 @@ int prepare_book (struct book_info *info) {
             }
 
             ptr = utf_skip_newline(line_end);
-            printf("... line processed: [%d] [%c]\n", (int)*ptr, *ptr);
+            //printf("... line processed: [%d] [%c]\n", (int)*ptr, *ptr);
         }
     }
 
@@ -370,9 +370,9 @@ static size_t detect_text_width(char *text) {
     int empty = 0;
     printf("Counting line lengths\n");
     while (to_check && *tmp != '\0') {
-        printf("... next line ... \n");
+        //printf("... next line ... \n");
         if (utf_line_is_empty(tmp)) {
-            printf(" ... empty line skipped\n");
+            //printf(" ... empty line skipped\n");
             empty++;
             to_check--;
             tmp = utf_next_line(tmp);
@@ -385,9 +385,9 @@ static size_t detect_text_width(char *text) {
         aaa[16] = '\0';
         printf("---> %s <---\n", aaa);
         */
-        printf("... not empty ... counting chars ... \n");
+        //printf("... not empty ... counting chars ... \n");
         size_t len = utf_line_length(tmp, NULL);
-        printf(" ... line %d chars\n", (int)len);
+        //printf(" ... line %d chars\n", (int)len);
         if (len > MAX_LINE_LEN) {
             /* it seems long text paragraphs are separated with LF,
              * so there is no right margin

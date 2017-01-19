@@ -52,7 +52,7 @@
 1479753824 c:\users\vladimir.markelov\projects\c\my\reader\base\base.h
 	<windows.h>
 
-1483463890 c:\users\vladimir.markelov\projects\c\my\reader\system\files.h
+1484785220 c:\users\vladimir.markelov\projects\c\my\reader\system\files.h
 
 1483463890 source:c:\users\vladimir.markelov\projects\c\my\reader\system\files.cpp
 	<stdio.h>
@@ -117,13 +117,13 @@
 1482560775 c:\users\vvm\projects\cpp\reader\plaintext\plaintext.h
 	"bookext.h"
 
-1484781158 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
+1484785131 c:\users\vladimir.markelov\projects\c\my\reader\bookutil\bookutil.h
 	<windows.h>
 
 1481063086 c:\users\vladimir.markelov\projects\c\my\reader\plaintext\bookext.h
 	"book.h"
 
-1484171198 source:c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.c
+1484788655 source:c:\users\vladimir.markelov\projects\c\my\reader\plaintext\plaintext.c
 	"plaintext.h"
 	"bookutil.h"
 
@@ -163,15 +163,18 @@
 
 1484614252 c:\users\vladimir.markelov\projects\c\my\reader\system\configfile.h
 
-1484695911 source:c:\users\vladimir.markelov\projects\c\my\reader\system\files.c
+1484785227 source:c:\users\vladimir.markelov\projects\c\my\reader\system\files.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
 	<iconv.h>
+	"logger.h"
 	"bookutil.h"
 	"files.h"
+	<direct.h>
+	<unistd.h>
 
-1484673754 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.c
+1484789229 source:c:\users\vladimir.markelov\projects\c\my\reader\textlib\book.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -182,11 +185,10 @@
 	"bookext.h"
 	"plaintext.h"
 	"bookiter.h"
-	<windows.h>
-	<dlfcn.h>
 
-1484781321 source:c:\users\vladimir.markelov\projects\c\my\reader\main.c
+1484789170 source:c:\users\vladimir.markelov\projects\c\my\reader\main.c
 	<stdio.h>
+	"logger.h"
 	"book.h"
 	"bookutil.h"
 	"bookext.h"
@@ -201,13 +203,14 @@
 
 1484767539 c:\users\vladimir.markelov\projects\c\my\reader\system\logger.h
 
-1484781726 source:c:\users\vladimir.markelov\projects\c\my\reader\bookconfig.c
+1484788837 source:c:\users\vladimir.markelov\projects\c\my\reader\bookconfig.c
 	<stdlib.h>
+	<stdio.h>
 	"configfile.h"
 	"bookutil.h"
 	"files.h"
 	"logger.h"
 	"bookconfig.h"
 
-1484779517 c:\users\vladimir.markelov\projects\c\my\reader\bookconfig.h
+1484787837 c:\users\vladimir.markelov\projects\c\my\reader\bookconfig.h
 

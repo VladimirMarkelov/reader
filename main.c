@@ -1,26 +1,46 @@
 #include <stdio.h>
 
+#include "logger.h"
+
 #include "book.h"
 #include "bookutil.h"
 #include "bookext.h"
 #include "files.h"
 #include "bookconfig.h"
 
-int main()
-{
+#ifdef _WIN32
+int wmain(int argc, wchar_t **argv) {
+#else
+int main(int argc, char **argv) {
+#endif
     printf("STep 1\n");
     char path[] = "пример.txt";
     printf("STep 2\n");
     struct book_info book_info;
+    book_info.encoding[0] = '\0';
+
+
+    struct reader_conf rconf;
+    load_reader_config(&rconf);
+
+    for (int i = 1; i < argc; ++i) {
+#ifdef _WIN32
+        char utf[512];
+        int cnv = ucs_to_utf(argv[i], utf, 512);
+        if (cnv == BOOK_SUCCESS) {
+            process_app_arg(utf, &rconf);
+        }
+#else
+        process_app_arg(argv[i], &rconf);
+#endif
+    }
+    if (rconf.enc[0] != '\0') {
+        log_message("main.log", "Use %s encoding to open book\n", rconf.enc);
+        strcpy(book_info.encoding, rconf.enc);
+    }
+
     int res = book_open(path, &book_info, BOOK_READ);
     printf("Open book: %d\n", res);
-
-    //std::string s;
-    //if (book_info.text != NULL) {
-    //    s = std::string(book_info.text, book_info.text + 15);
-    //}
-
-    //cout << res << " --> " << book_info.status << " : " << s << endl;
 
     char dir[1024];
     char dir2[1024];
@@ -32,9 +52,6 @@ int main()
     FILE *f = fopen("cnv.txt", "wb");
     fwrite(book_info.text, sizeof(char), book_info.text_sz, f);
     fclose(f);
-
-    struct reader_conf rconf;
-    load_reader_config(&rconf);
 
     struct pre_options opts;
     opts.width = 80;
@@ -56,6 +73,10 @@ int main()
     }
     fclose(fr);
     printf("Lines = %d\n", i);
+
+    char cwd[1024];
+    int rr = get_working_directory(cwd, 1024);
+    log_message("main.log", "[%d] %s\n", rr, cwd);
 
     return 0;
 }

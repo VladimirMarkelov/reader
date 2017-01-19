@@ -3,6 +3,8 @@
 #include <string.h>
 #include <iconv.h>
 
+//#include "logger.h"
+
 #include "bookutil.h"
 #include "utf8proc.h"
 
@@ -324,6 +326,11 @@ size_t convert_to_utf8_buffer(char *in, size_t in_sz, char *out, size_t out_sz, 
     size_t max_size = out_sz;
 
     iconv_t h = iconv_open("UTF-8", enc);
+    /*int transliterate = 1;*/
+    int discard = 1;
+    /*iconvctl(h, ICONV_SET_TRANSLITERATE, &transliterate);*/
+    iconvctl(h, ICONV_SET_DISCARD_ILSEQ, &discard);
+
     char *inbuf = in, *outbuf = out;
     size_t res = iconv(h, &inbuf, &in_size, &outbuf, &max_size);
     iconv_close(h);
@@ -360,6 +367,11 @@ size_t convert_from_utf8_buffer(char *in, size_t in_sz, char *out, size_t out_sz
     size_t max_size = out_sz;
 
     iconv_t h = iconv_open(enc, "UTF-8");
+    /*int transliterate = 1;*/
+    int discard = 1;
+    /*iconvctl(h, ICONV_SET_TRANSLITERATE, &transliterate);*/
+    iconvctl(h, ICONV_SET_DISCARD_ILSEQ, &discard);
+
     char *inbuf = in, *outbuf = out;
     size_t res = iconv(h, &inbuf, &in_size, &outbuf, &max_size);
     iconv_close(h);
@@ -1462,6 +1474,60 @@ int DLL_EXPORT utf_equal_no_case(const char *str1, const char *str2) {
 
     return 1;
 }
+
+#ifdef _WIN32
+int DLL_EXPORT ucs_to_utf(wchar_t *ucs2, char *utf, size_t utf_sz) {
+    if (ucs2 == NULL || utf == NULL) {
+        return BOOK_INVALID_ARG;
+    }
+
+    iconv_t h = iconv_open("UTF-8", "UTF-16LE");
+
+    char *outbuf = (char *)utf;
+    char *inbuf = (char *)ucs2;
+    size_t insize = wcslen(ucs2) * sizeof(wchar_t), outsize = utf_sz;
+
+    errno = 0;
+
+    size_t ires = iconv(h, &inbuf, &insize, &outbuf, &outsize);
+    iconv_close(h);
+
+    if (ires == (size_t)-1) {
+        return (errno == E2BIG) ? BOOK_BUFFER_SMALL : BOOK_CONVERT_FAIL;
+    }
+
+    utf[utf_sz - outsize] = '\0';
+
+    return BOOK_SUCCESS;
+}
+
+int DLL_EXPORT utf_to_ucs(char *utf, wchar_t *ucs2, size_t ucs_sz) {
+    if (ucs2 == NULL || utf == NULL) {
+        return BOOK_INVALID_ARG;
+    }
+
+    iconv_t h = iconv_open("UTF-16LE", "UTF-8");
+
+    char *outbuf = (char *)ucs2;
+    char *inbuf = (char *)utf;
+    size_t insize = strlen(utf), outsize = ucs_sz;
+
+    errno = 0;
+    size_t ires = iconv(h, &inbuf, &insize, &outbuf, &outsize);
+    iconv_close(h);
+
+    if (ires == (size_t)-1) {
+        return (errno == E2BIG) ? BOOK_BUFFER_SMALL : BOOK_CONVERT_FAIL;
+    }
+
+    outbuf = (char*)ucs2;
+    outbuf[ucs_sz - outsize] = '\0';
+
+    return BOOK_SUCCESS;
+}
+#else
+    // Not required for *NIX
+#endif
 
 //#ifdef _WIN32
 //    // Windows (x64 and x86)
